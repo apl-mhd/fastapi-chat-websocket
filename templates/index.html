@@ -19,10 +19,19 @@
             ws.onmessage = function(event) {
                 var messages = document.getElementById('messages')
                 var message = document.createElement('li')
-                var content = document.createTextNode(event.data)
-                message.appendChild(content)
-                messages.appendChild(message)
+                
+                data = JSON.parse(event.data)
+                console.log(data)
+
+                var content = document.createTextNode(data['message'])
+
+                if(client_id != data['id']){
+                    message.appendChild(content)
+                    messages.appendChild(message)
+                }
+               
             };
+
             function sendMessage(event) {
                 var input = document.getElementById("messageText")
                 ws.send(input.value)
